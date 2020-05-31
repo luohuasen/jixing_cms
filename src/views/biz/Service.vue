@@ -37,7 +37,14 @@
 					<el-input v-model="editForm.title"></el-input>
 				</el-form-item>
 				<el-form-item label="图片" prop="icon">
-					<el-input v-model="editForm.icon"></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadEditFormImageSuccess">
+						<img v-if="editForm.icon" :src="editForm.icon" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 				<el-form-item label="跳转链接" prop="url">
 					<el-input v-model="editForm.url"></el-input>
@@ -57,7 +64,14 @@
 				</el-form-item>
 
 				<el-form-item label="图片" prop="icon">
-					<el-input v-model="addForm.icon"></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadAddFormImageSuccess">
+						<img v-if="addForm.icon" :src="addForm.icon" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 
 				<el-form-item label="跳转链接" prop="url">
@@ -203,6 +217,12 @@
 						});
 					}
 				});
+			},
+			uploadEditFormImageSuccess: function (res) {
+				this.editForm.icon = res.data;
+			},
+			uploadAddFormImageSuccess: function (res) {
+				this.addForm.icon = res.data;
 			}
 		},
 		mounted() {
@@ -213,5 +233,27 @@
 </script>
 
 <style scoped>
-
+	.avatar-uploader .el-upload {
+		border: 1px dashed #d9d9d9;
+		border-radius: 6px;
+		cursor: pointer;
+		position: relative;
+		overflow: hidden;
+	}
+	.avatar-uploader .el-upload:hover {
+		border-color: #409EFF;
+	}
+	.avatar-uploader-icon {
+		font-size: 28px;
+		color: #8c939d;
+		width: 178px;
+		height: 178px;
+		line-height: 178px;
+		text-align: center;
+	}
+	.avatar {
+		width: 178px;
+		height: 178px;
+		display: block;
+	}
 </style>

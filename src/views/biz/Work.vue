@@ -52,13 +52,34 @@
 					<el-input v-model="editForm.title" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="图片1">
-					<el-input v-model="editForm.img0" :min="0" :max="200"></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadEditFormImageSuccess0">
+						<img v-if="editForm.img0" :src="editForm.img0" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 				<el-form-item label="图片2">
-					<el-input v-model="editForm.img1" :min="0" :max="200"></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadEditFormImageSuccess0">
+						<img v-if="editForm.img1" :src="editForm.img1" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 				<el-form-item label="图片3">
-					<el-input v-model="editForm.img2" :min="0" :max="200"></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadEditFormImageSuccess0">
+						<img v-if="editForm.img2" :src="editForm.img2" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -75,13 +96,34 @@
 				</el-form-item>
 
 				<el-form-item label="图片1">
-					<el-input v-model="addForm.img0" :min="0" :max="200"></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadAddFormImageSuccess0">
+						<img v-if="editForm.img0" :src="editForm.img0" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 				<el-form-item label="图片2">
-					<el-input v-model="addForm.img1" :min="0" :max="200"></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadAddFormImageSuccess0">
+						<img v-if="editForm.img1" :src="editForm.img2" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 				<el-form-item label="图片3">
-					<el-input v-model="addForm.img2" :min="0" :max="200"></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadAddFormImageSuccess0">
+						<img v-if="editForm.img2" :src="editForm.img2" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -229,6 +271,25 @@
 						});
 					}
 				});
+			},
+			uploadEditFormImageSuccess0: function (res) {
+				this.editForm.img0 = res.data;
+			},
+			uploadEditFormImageSuccess1: function (res) {
+				this.editForm.img1 = res.data;
+			},
+			uploadEditFormImageSuccess2: function (res) {
+				this.editForm.img2 = res.data;
+			},
+
+			uploadAddFormImageSuccess0: function (res) {
+				this.addForm.img0 = res.data;
+			},
+			uploadAddFormImageSuccess1: function (res) {
+				this.addForm.img1 = res.data;
+			},
+			uploadAddFormImageSuccess2: function (res) {
+				this.addForm.img2 = res.data;
 			}
 		},
 		mounted() {
@@ -239,5 +300,27 @@
 </script>
 
 <style scoped>
-
+	.avatar-uploader .el-upload {
+		border: 1px dashed #d9d9d9;
+		border-radius: 6px;
+		cursor: pointer;
+		position: relative;
+		overflow: hidden;
+	}
+	.avatar-uploader .el-upload:hover {
+		border-color: #409EFF;
+	}
+	.avatar-uploader-icon {
+		font-size: 28px;
+		color: #8c939d;
+		width: 178px;
+		height: 178px;
+		line-height: 178px;
+		text-align: center;
+	}
+	.avatar {
+		width: 178px;
+		height: 178px;
+		display: block;
+	}
 </style>

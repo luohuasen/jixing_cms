@@ -60,21 +60,52 @@
 				<el-form-item label="标题" prop="title">
 					<el-input v-model="editForm.title" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="是否是大图" prop="is_big">
+				<el-form-item label="是否大图" prop="is_big">
 					<el-input v-model="editForm.is_big" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="图片1">
-					<el-input v-model="editForm.image0" ></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadEditFormImageSuccess0">
+						<img v-if="editForm.image0" :src="editForm.image0" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 				<el-form-item label="图片2">
-					<el-input v-model="editForm.image1" ></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadEditFormImageSuccess1">
+						<img v-if="editForm.image1" :src="editForm.image1" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
+
 				<el-form-item label="图片3">
-					<el-input v-model="editForm.image2" ></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadEditFormImageSuccess2">
+						<img v-if="editForm.image2" :src="editForm.image2" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
-				<el-form-item label="图片3">
-					<el-input v-model="editForm.image3" ></el-input>
+
+				<el-form-item label="图片4">
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadEditFormImageSuccess3">
+						<img v-if="editForm.image3" :src="editForm.image3" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
+
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click.native="editFormVisible = false">取消</el-button>
@@ -92,16 +123,44 @@
 					<el-input v-model="addForm.is_big"></el-input>
 				</el-form-item>
 				<el-form-item label="图片1">
-					<el-input v-model="addForm.image0" ></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadAddFormImageSuccess0">
+						<img v-if="editForm.image0" :src="editForm.image0" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 				<el-form-item label="图片2">
-					<el-input v-model="addForm.image1" ></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadAddFormImageSuccess1">
+						<img v-if="editForm.image1" :src="editForm.image1" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 				<el-form-item label="图片3">
-					<el-input v-model="addForm.image2" ></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadAddFormImageSuccess2">
+						<img v-if="editForm.image2" :src="editForm.image2" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 				<el-form-item label="图片4">
-					<el-input v-model="addForm.image3" ></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadAddFormImageSuccess3">
+						<img v-if="editForm.image3" :src="editForm.image3" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -247,7 +306,32 @@
 						});
 					}
 				});
+			},
+			uploadEditFormImageSuccess0: function (res) {
+				this.editForm.image0 = res.data;
+			},
+			uploadEditFormImageSuccess1: function (res) {
+				this.editForm.image1 = res.data;
+			},
+			uploadEditFormImageSuccess2: function (res) {
+				this.editForm.image2 = res.data;
+			},
+			uploadEditFormImageSuccess3: function (res) {
+				this.editForm.image3 = res.data;
+			},
+			uploadAddFormImageSuccess0: function (res) {
+				this.addForm.image0 = res.data;
+			},
+			uploadAddFormImageSuccess1: function (res) {
+				this.addForm.image1 = res.data;
+			},
+			uploadAddFormImageSuccess2: function (res) {
+				this.addForm.image2 = res.data;
+			},
+			uploadAddFormImageSuccess3: function (res) {
+				this.addForm.image3 = res.data;
 			}
+
 		},
 		mounted() {
 			this.list();
@@ -257,5 +341,27 @@
 </script>
 
 <style scoped>
-
+	.avatar-uploader .el-upload {
+		border: 1px dashed #d9d9d9;
+		border-radius: 6px;
+		cursor: pointer;
+		position: relative;
+		overflow: hidden;
+	}
+	.avatar-uploader .el-upload:hover {
+		border-color: #409EFF;
+	}
+	.avatar-uploader-icon {
+		font-size: 28px;
+		color: #8c939d;
+		width: 178px;
+		height: 178px;
+		line-height: 178px;
+		text-align: center;
+	}
+	.avatar {
+		width: 178px;
+		height: 178px;
+		display: block;
+	}
 </style>
