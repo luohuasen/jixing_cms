@@ -41,7 +41,14 @@
 					<el-input v-model="editForm.password" :min="0" :max="200"></el-input>
 				</el-form-item>
 				<el-form-item label="头像">
-					<el-input v-model="editForm.avatar" :min="0" :max="200"></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadEditFormImageSuccess">
+						<img v-if="editForm.avatar" :src="editForm.avatar" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 				<el-form-item label="昵称">
 					<el-input v-model="editForm.nickname" :min="0" :max="200"></el-input>
@@ -64,7 +71,14 @@
 					<el-input v-model="addForm.password" :min="0" :max="200"></el-input>
 				</el-form-item>
 				<el-form-item label="头像">
-					<el-input v-model="addForm.avatar" :min="0" :max="200"></el-input>
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadEditFormImageSuccess">
+						<img v-if="addForm.avatar" :src="addForm.avatar" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
 				<el-form-item label="昵称">
 					<el-input v-model="addForm.nickname" :min="0" :max="200"></el-input>
@@ -207,6 +221,12 @@
 						});
 					}
 				});
+			},
+			uploadEditFormImageSuccess: function (res) {
+				this.editForm.image = res.data;
+			},
+			uploadAddFormImageSuccess: function (res) {
+				this.addForm.image = res.data;
 			}
 		},
 		mounted() {
@@ -217,5 +237,27 @@
 </script>
 
 <style scoped>
-
+	.avatar-uploader .el-upload {
+		border: 1px dashed #d9d9d9;
+		border-radius: 6px;
+		cursor: pointer;
+		position: relative;
+		overflow: hidden;
+	}
+	.avatar-uploader .el-upload:hover {
+		border-color: #409EFF;
+	}
+	.avatar-uploader-icon {
+		font-size: 28px;
+		color: #8c939d;
+		width: 178px;
+		height: 178px;
+		line-height: 178px;
+		text-align: center;
+	}
+	.avatar {
+		width: 178px;
+		height: 178px;
+		display: block;
+	}
 </style>
