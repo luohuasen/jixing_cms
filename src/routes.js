@@ -1,15 +1,12 @@
-import Login from './views/Login.vue'
+import Login    from './views/Login.vue'
 import NotFound from './views/404.vue'
-import Home from './views/Home.vue'
-import Main from './views/Main.vue'
-import Table from './views/nav1/Table.vue'
-import Form from './views/nav1/Form.vue'
-import user from './views/nav1/user.vue'
-import Page4 from './views/nav2/Page4.vue'
-import Page5 from './views/nav2/Page5.vue'
-import Page6 from './views/nav3/Page6.vue'
-import echarts from './views/charts/echarts.vue'
-
+import Home     from './views/Home.vue'
+import Banner   from './views/biz/Banner.vue'
+import Config   from './views/biz/Config.vue'
+import Product  from './views/biz/Product.vue'
+import Service  from './views/biz/Service.vue'
+import Work     from './views/biz/Work.vue'
+import User     from './views/biz/User.vue'
 let routes = [
     {
         path: '/login',
@@ -23,46 +20,26 @@ let routes = [
         name: '',
         hidden: true
     },
-    //{ path: '/main', component: Main },
     {
         path: '/',
         component: Home,
-        name: '导航一',
-        iconCls: 'el-icon-message',//图标样式class
+        name: '常用配置',
+        iconCls: 'el-icon-message',
         children: [
-            { path: '/main', component: Main, name: '主页', hidden: true },
-            { path: '/table', component: Table, name: 'Table' },
-            { path: '/form', component: Form, name: 'Form' },
-            { path: '/user', component: user, name: '列表' },
+            { path: '/banner', component: Banner, name: 'banner图片' },
+            { path: '/config', component: Config, name: '通用配置' },
+            { path: '/product', component: Product, name: '吉星产品' },
+            { path: '/service', component: Service, name: '我们的服务' },
+            { path: '/work', component: Work, name: '制作案例' }
         ]
     },
     {
         path: '/',
         component: Home,
-        name: '导航二',
-        iconCls: 'fa fa-id-card-o',
-        children: [
-            { path: '/page4', component: Page4, name: '页面4' },
-            { path: '/page5', component: Page5, name: '页面5' }
-        ]
-    },
-    {
-        path: '/',
-        component: Home,
-        name: '',
-        iconCls: 'fa fa-address-card',
-        leaf: true,//只有一个节点
-        children: [
-            { path: '/page6', component: Page6, name: '导航三' }
-        ]
-    },
-    {
-        path: '/',
-        component: Home,
-        name: 'Charts',
+        name: '系统用户',
         iconCls: 'fa fa-bar-chart',
         children: [
-            { path: '/echarts', component: echarts, name: 'echarts' }
+            { path: '/user', component: User, name: '用户管理' }
         ]
     },
     {
