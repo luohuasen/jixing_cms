@@ -7,9 +7,15 @@
 		<!--列表-->
 		<el-table :data="works" highlight-current-row  :show-overflow-tooltip='true' v-loading="listLoading" style="width: 100%;">
 			<el-table-column type="index" width="60"> </el-table-column>
-			<el-table-column prop="title" label="标题" width="200"> </el-table-column>
-			<el-table-column prop="is_big" label="是否大图" width="100"> </el-table-column>
-			<el-table-column label="图片" width="100" >
+			<el-table-column label="大图" width="150" >
+				<template slot-scope="scope">
+					<el-popover placement="right" title="" trigger="hover">
+						<img :src="scope.row.bigImage" />
+						<img slot="reference" :src="scope.row.bigImage" :alt="scope.row.bigImage" style="max-height: 50px;max-width: 130px">
+					</el-popover>
+				</template>
+			</el-table-column>
+			<el-table-column label="小图1" width="150" >
 				<template slot-scope="scope">
 					<el-popover placement="right" title="" trigger="hover">
 						<img :src="scope.row.image0" />
@@ -17,7 +23,7 @@
 					</el-popover>
 				</template>
 			</el-table-column>
-			<el-table-column label="图片" width="100" >
+			<el-table-column label="小图2" width="150" >
 				<template slot-scope="scope">
 					<el-popover placement="right" title="" trigger="hover">
 						<img :src="scope.row.image1" />
@@ -25,7 +31,7 @@
 					</el-popover>
 				</template>
 			</el-table-column>
-			<el-table-column label="图片" width="100" >
+			<el-table-column label="小图3" width="150" >
 				<template slot-scope="scope">
 					<el-popover placement="right" title="" trigger="hover">
 						<img :src="scope.row.image2" />
@@ -33,7 +39,7 @@
 					</el-popover>
 				</template>
 			</el-table-column>
-			<el-table-column label="图片" width="100" >
+			<el-table-column label="小图4" width="150" >
 				<template slot-scope="scope">
 					<el-popover placement="right" title="" trigger="hover">
 						<img :src="scope.row.image3" />
@@ -57,13 +63,24 @@
 		<!--编辑界面-->
 		<el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="80px" ref="editForm">
-				<el-form-item label="标题" prop="title">
-					<el-input v-model="editForm.title" auto-complete="off"></el-input>
+				<el-form-item label="大图标题" prop="is_big">
+					<el-input v-model="editForm.bigTitle" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="是否大图" prop="is_big">
-					<el-input v-model="editForm.is_big" auto-complete="off"></el-input>
+				<el-form-item label="大图">
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadEditFormImageSuccessBig">
+						<img v-if="editForm.bigImage" :src="editForm.bigImage" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
-				<el-form-item label="图片1">
+
+				<el-form-item label="标题1" prop="title0">
+					<el-input v-model="editForm.title0" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="小图1">
 					<el-upload
 							class="avatar-uploader"
 							action="http://www.jixing.com/upload/image"
@@ -73,7 +90,11 @@
 						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 					</el-upload>
 				</el-form-item>
-				<el-form-item label="图片2">
+
+				<el-form-item label="标题2" prop="title0">
+					<el-input v-model="editForm.title1" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="小图2">
 					<el-upload
 							class="avatar-uploader"
 							action="http://www.jixing.com/upload/image"
@@ -84,7 +105,10 @@
 					</el-upload>
 				</el-form-item>
 
-				<el-form-item label="图片3">
+				<el-form-item label="标题3" prop="title2">
+					<el-input v-model="editForm.title2" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="小图3">
 					<el-upload
 							class="avatar-uploader"
 							action="http://www.jixing.com/upload/image"
@@ -95,7 +119,10 @@
 					</el-upload>
 				</el-form-item>
 
-				<el-form-item label="图片4">
+				<el-form-item label="标题4" prop="title3">
+					<el-input v-model="editForm.title3" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="小图4">
 					<el-upload
 							class="avatar-uploader"
 							action="http://www.jixing.com/upload/image"
@@ -116,49 +143,72 @@
 		<!--新增界面-->
 		<el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
 			<el-form :model="addForm" label-width="80px" ref="addForm">
-				<el-form-item label="标题" prop="name">
-					<el-input v-model="addForm.title"></el-input>
+				<el-form-item label="大图标题" prop="bigTitle">
+					<el-input v-model="addForm.bigTitle" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="是否是大图" prop="is_big">
-					<el-input v-model="addForm.is_big"></el-input>
+				<el-form-item label="大图">
+					<el-upload
+							class="avatar-uploader"
+							action="http://www.jixing.com/upload/image"
+							:show-file-list="false"
+							:on-success="uploadAddFormImageSuccessBig">
+						<img v-if="addForm.bigImage" :src="addForm.bigImage" class="avatar">
+						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+					</el-upload>
 				</el-form-item>
-				<el-form-item label="图片1">
+
+				<el-form-item label="标题1" prop="title0">
+					<el-input v-model="addForm.title0" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="小图1">
 					<el-upload
 							class="avatar-uploader"
 							action="http://www.jixing.com/upload/image"
 							:show-file-list="false"
 							:on-success="uploadAddFormImageSuccess0">
-						<img v-if="editForm.image0" :src="editForm.image0" class="avatar">
+						<img v-if="addForm.image0" :src="addForm.image0" class="avatar">
 						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 					</el-upload>
 				</el-form-item>
-				<el-form-item label="图片2">
+
+				<el-form-item label="标题2" prop="title1">
+					<el-input v-model="addForm.title1" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="小图2">
 					<el-upload
 							class="avatar-uploader"
 							action="http://www.jixing.com/upload/image"
 							:show-file-list="false"
 							:on-success="uploadAddFormImageSuccess1">
-						<img v-if="editForm.image1" :src="editForm.image1" class="avatar">
+						<img v-if="addForm.image1" :src="addForm.image1" class="avatar">
 						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 					</el-upload>
 				</el-form-item>
-				<el-form-item label="图片3">
+
+				<el-form-item label="标题3" prop="title2">
+					<el-input v-model="addForm.title2" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="小图3">
 					<el-upload
 							class="avatar-uploader"
 							action="http://www.jixing.com/upload/image"
 							:show-file-list="false"
 							:on-success="uploadAddFormImageSuccess2">
-						<img v-if="editForm.image2" :src="editForm.image2" class="avatar">
+						<img v-if="addForm.image2" :src="addForm.image2" class="avatar">
 						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 					</el-upload>
 				</el-form-item>
-				<el-form-item label="图片4">
+
+				<el-form-item label="标题4" prop="title3">
+					<el-input v-model="addForm.title3" auto-complete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="小图4">
 					<el-upload
 							class="avatar-uploader"
 							action="http://www.jixing.com/upload/image"
 							:show-file-list="false"
 							:on-success="uploadAddFormImageSuccess3">
-						<img v-if="editForm.image3" :src="editForm.image3" class="avatar">
+						<img v-if="addForm.image3" :src="addForm.image3" class="avatar">
 						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 					</el-upload>
 				</el-form-item>
@@ -187,11 +237,15 @@
 				//编辑界面数据
 				editForm: {
 					id: 0,
-					title: '',
-					is_big: '',
+					bigTitle: '',
+					bigImage: '',
+					title0: '',
 					image0: '',
+					title1: '',
 					image1: '',
+					title2: '',
 					image2: '',
+					title3: '',
 					image3: ''
 				},
 
@@ -199,11 +253,15 @@
 				addLoading: false,
 				//新增界面数据
 				addForm: {
-					title: '',
-					is_big: '',
+					bigTitle: '',
+					bigImage: '',
+					title0: '',
 					image0: '',
+					title1: '',
 					image1: '',
+					title2: '',
 					image2: '',
+					title3: '',
 					image3: ''
 				}
 
@@ -307,6 +365,9 @@
 					}
 				});
 			},
+			uploadEditFormImageSuccessBig: function (res) {
+				this.editForm.bigImage = res.data;
+			},
 			uploadEditFormImageSuccess0: function (res) {
 				this.editForm.image0 = res.data;
 			},
@@ -318,6 +379,9 @@
 			},
 			uploadEditFormImageSuccess3: function (res) {
 				this.editForm.image3 = res.data;
+			},
+			uploadAddFormImageSuccessBig: function (res) {
+				this.addForm.bigImage = res.data;
 			},
 			uploadAddFormImageSuccess0: function (res) {
 				this.addForm.image0 = res.data;

@@ -22,7 +22,7 @@
       return {
         logining: false,
         ruleForm2: {
-          account: 'luohuasen',
+          account: 'luoyang',
           checkPass: '123456'
         },
         rules2: {

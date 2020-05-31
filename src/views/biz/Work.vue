@@ -101,7 +101,7 @@
 							action="http://www.jixing.com/upload/image"
 							:show-file-list="false"
 							:on-success="uploadAddFormImageSuccess0">
-						<img v-if="editForm.img0" :src="editForm.img0" class="avatar">
+						<img v-if="addForm.img0" :src="addForm.img0" class="avatar">
 						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 					</el-upload>
 				</el-form-item>
@@ -110,8 +110,8 @@
 							class="avatar-uploader"
 							action="http://www.jixing.com/upload/image"
 							:show-file-list="false"
-							:on-success="uploadAddFormImageSuccess0">
-						<img v-if="editForm.img1" :src="editForm.img2" class="avatar">
+							:on-success="uploadAddFormImageSuccess1">
+						<img v-if="addForm.img1" :src="addForm.img1" class="avatar">
 						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 					</el-upload>
 				</el-form-item>
@@ -120,8 +120,8 @@
 							class="avatar-uploader"
 							action="http://www.jixing.com/upload/image"
 							:show-file-list="false"
-							:on-success="uploadAddFormImageSuccess0">
-						<img v-if="editForm.img2" :src="editForm.img2" class="avatar">
+							:on-success="uploadAddFormImageSuccess2">
+						<img v-if="addForm.img2" :src="addForm.img2" class="avatar">
 						<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 					</el-upload>
 				</el-form-item>

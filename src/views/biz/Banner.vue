@@ -7,7 +7,7 @@
 		<!--列表-->
 		<el-table :data="works" highlight-current-row v-loading="listLoading"  :show-overflow-tooltip='true' style="width: 100%;">
 			<el-table-column type="index" width="60"> </el-table-column>
-			<el-table-column label="图片" width="500">
+			<el-table-column label="图片" width="150">
 				<template slot-scope="scope">
 					<el-popover placement="right" title="" trigger="hover">
 						<img :src="scope.row.image" />
@@ -15,7 +15,7 @@
 					</el-popover>
 				</template>
 			</el-table-column>
-			<el-table-column prop="description" label="描述" width="150"> </el-table-column>
+			<el-table-column prop="description" label="描述" width="500"> </el-table-column>
 			<el-table-column prop="displayOrder" label="顺序" width="100"> </el-table-column>
 			<el-table-column label="操作" width="150">
 				<template slot-scope="scope">
