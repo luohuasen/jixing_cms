@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-let base = 'http://www.jixing.com';
+// let base = 'http://www.jixing.com/';
+let base = 'http://106.52.26.157/';
 
 // 案例
 export const getWorkListPage = params => { return axios.get(`${base}/work/all`, { params: params }); };

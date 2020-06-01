@@ -49,6 +49,10 @@
 				<el-form-item label="跳转链接" prop="url">
 					<el-input v-model="editForm.url"></el-input>
 				</el-form-item>
+
+				<el-form-item label="描述" prop="content">
+					<el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="editForm.content"></el-input>
+				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click.native="editFormVisible = false">取消</el-button>
@@ -77,6 +81,10 @@
 				<el-form-item label="跳转链接" prop="url">
 					<el-input v-model="addForm.url"></el-input>
 				</el-form-item>
+
+				<el-form-item label="描述" prop="content">
+					<el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="addForm.content"></el-input>
+				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click.native="addFormVisible = false">取消</el-button>
@@ -104,6 +112,7 @@
 					id: 0,
 					title: '',
 					icon: '',
+					content: '',
 					url: ''
 				},
 
@@ -118,6 +127,7 @@
 				addForm: {
 					title: '',
 					icon: '',
+					content: '',
 					url: ''
 				}
 

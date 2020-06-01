@@ -21,7 +21,7 @@
 			</el-col>
 		</el-col>
 		<el-col :span="24" class="main">
-			<aside :class="collapsed?'menu-collapsed':'menu-expanded'">
+			<aside :class="collapsed?'menu-collapsed':'menu-expanded'" >
 				<!--导航菜单-->
 				<el-menu :default-active="$route.path" class="el-menu-vertical-demo" @open="handleopen" @close="handleclose" @select="handleselect"
 					 unique-opened router v-show="!collapsed">
@@ -75,7 +75,7 @@
 	export default {
 		data() {
 			return {
-				sysName:'VUEADMIN',
+				sysName:'吉星广告',
 				collapsed:false,
 				sysUserName: '',
 				sysUserAvatar: '',
@@ -96,10 +96,10 @@
 				console.log('submit!');
 			},
 			handleopen() {
-				//console.log('handleopen');
+
 			},
 			handleclose() {
-				//console.log('handleclose');
+				//
 			},
 			handleselect: function (a, b) {
 			},
@@ -120,6 +120,9 @@
 			//折叠导航栏
 			collapse:function(){
 				this.collapsed=!this.collapsed;
+				if(!this.collapsed){
+					this.$refs.menuCollapsed.parentNode.childNodes[0].style.width='240px';
+				}
 			},
 			showMenu(i,status){
 				this.$refs.menuCollapsed.getElementsByClassName('submenu-hook-'+i)[0].style.display=status?'block':'none';
