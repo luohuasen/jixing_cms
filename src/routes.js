@@ -23,7 +23,7 @@ let routes = [
     {
         path: '/',
         component: Home,
-        name: '常用配置',
+        name: '网站首页',
         iconCls: 'el-icon-message',
         children: [
             { path: '/banner', component: Banner, name: 'banner图片' },
@@ -31,6 +31,42 @@ let routes = [
             { path: '/product', component: Product, name: '吉星产品' },
             { path: '/service', component: Service, name: '我们的服务' },
             { path: '/work', component: Work, name: '制作案例' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '关于吉星',
+        iconCls: 'el-icon-information',
+        children: [
+            { path: '/user', component: User, name: '用户管理' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '产品展示',
+        iconCls: 'el-icon-menu',
+        children: [
+            { path: '/user', component: User, name: '用户管理' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '服务介绍',
+        iconCls: 'el-icon-menu',
+        children: [
+            { path: '/user', component: User, name: '用户管理' }
+        ]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '联系我们',
+        iconCls: 'el-icon-menu',
+        children: [
+            { path: '/user', component: User, name: '用户管理' }
         ]
     },
     {
